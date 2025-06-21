@@ -1,12 +1,41 @@
-# React + Vite
+# 🌤️ Weather App (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful, responsive weather app inspired by Apple Weather — built with **React**, **Vite**, and **Tailwind CSS**.
 
-Currently, two official plugins are available:
+Live demo 👉 [https://your-vercel-app-url.vercel.app](https://your-vercel-app-url.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 📍 Auto detect current location (Geolocation API)
+- 🔍 Search by city name
+- 🌤️ Current weather with animated icons
+- 🕓 Hourly forecast (today & tomorrow)
+- 📅 Daily forecast
+- 💨 Air Quality & UV Index
+- 🌅 Sunrise & Sunset
+- Smooth background gradients based on weather
+- Fully responsive & mobile friendly
+- Deployed on **Vercel**
+
+---
+
+## 🛠 Tech Stack
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Open-Meteo API](https://open-meteo.com/)
+- [OpenWeatherMap Geo API](https://openweathermap.org/api/geocoding-api)
+- Deployed via [Vercel](https://vercel.com/)
+
+---
+
+## ⚙️ Setup & Run Locally
+
+1️⃣ Clone the repo:
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
