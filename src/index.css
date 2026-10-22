@@ -1,16 +1,194 @@
 @import "tailwindcss";
-/* index.css */
-/* Hide scrollbar for Chrome, Safari and Opera */
-::-webkit-scrollbar {
-  display: none;
+
+/* Theme is driven by data-theme on <html> (set by SettingsProvider). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 8px 32px rgb(0 0 0 / 0.12);
+
+  --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-rain: rain var(--rain-speed, 0.55s) linear infinite;
+  --animate-snow: snow var(--snow-speed, 14s) linear infinite;
+  --animate-fog: fog 28s ease-in-out infinite alternate;
+  --animate-twinkle: twinkle 4s ease-in-out infinite alternate;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes rain {
+    from { background-position: 0 0; }
+    to { background-position: 0 var(--rain-travel, 110px); }
+  }
+  @keyframes snow {
+    from { background-position: 0 0; }
+    to { background-position: var(--snow-x, 70px) var(--snow-y, 700px); }
+  }
+  @keyframes fog {
+    from { transform: translateX(-6%); }
+    to { transform: translateX(6%); }
+  }
+  @keyframes twinkle {
+    from { opacity: 0.45; }
+    to { opacity: 1; }
+  }
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-html {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+/* Colours that follow the active theme. */
+@theme inline {
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-card: var(--card);
+  --color-card-strong: var(--card-strong);
+  --color-card-border: var(--card-border);
+  --color-accent: var(--accent);
+  --color-input: var(--input);
+}
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --fg: #ffffff;
+  --fg-muted: rgb(255 255 255 / 0.74);
+  --fg-faint: rgb(255 255 255 / 0.5);
+  --card: rgb(255 255 255 / 0.1);
+  --card-strong: rgb(255 255 255 / 0.18);
+  --card-border: rgb(255 255 255 / 0.14);
+  --input: rgb(0 0 0 / 0.22);
+  --accent: #7dd3fc;
+  --bg-base: #0b1220;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --fg: #0f172a;
+  --fg-muted: rgb(15 23 42 / 0.72);
+  --fg-faint: rgb(15 23 42 / 0.5);
+  --card: rgb(255 255 255 / 0.5);
+  --card-strong: rgb(255 255 255 / 0.74);
+  --card-border: rgb(255 255 255 / 0.65);
+  --input: rgb(255 255 255 / 0.6);
+  --accent: #0369a1;
+  --bg-base: #dbeafe;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--bg-base);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 1, "cv11" 1, "ss01" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .glass {
+    @apply rounded-card border border-card-border bg-card shadow-card backdrop-blur-xl;
+  }
+  .glass-strong {
+    @apply rounded-card border border-card-border bg-card-strong shadow-card backdrop-blur-xl;
+  }
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* --- weather particle layers (purely decorative, hidden for reduced motion) --- */
+  .fx-rain {
+    --rain-travel: 110px;
+    --rain-speed: 0.55s;
+    background-image: radial-gradient(1px 26px at 50% 50%, rgb(255 255 255 / 0.5), transparent 100%);
+    background-size: 22px 110px;
+    transform: skewX(-9deg) scale(1.15);
+    opacity: 0.6;
+    @apply animate-rain;
+  }
+  .fx-rain-far {
+    --rain-travel: 160px;
+    --rain-speed: 0.95s;
+    background-image: radial-gradient(1px 20px at 50% 50%, rgb(255 255 255 / 0.35), transparent 100%);
+    background-size: 38px 160px;
+    transform: skewX(-9deg) scale(1.15);
+    opacity: 0.45;
+    @apply animate-rain;
+  }
+  .fx-snow {
+    --snow-x: 70px;
+    --snow-y: 700px;
+    --snow-speed: 14s;
+    background-image: radial-gradient(circle 2.5px at 50% 50%, rgb(255 255 255 / 0.95), transparent 70%);
+    background-size: 70px 70px;
+    opacity: 0.8;
+    @apply animate-snow;
+  }
+  .fx-snow-far {
+    --snow-x: -110px;
+    --snow-y: 1100px;
+    --snow-speed: 26s;
+    background-image: radial-gradient(circle 1.5px at 50% 50%, rgb(255 255 255 / 0.8), transparent 70%);
+    background-size: 110px 110px;
+    opacity: 0.6;
+    @apply animate-snow;
+  }
+  .fx-fog {
+    background-image:
+      radial-gradient(ellipse 60% 40% at 30% 60%, rgb(255 255 255 / 0.22), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 75% 30%, rgb(255 255 255 / 0.18), transparent 70%),
+      radial-gradient(ellipse 45% 30% at 55% 85%, rgb(255 255 255 / 0.16), transparent 70%);
+    @apply animate-fog;
+  }
+  .fx-stars {
+    background-image:
+      radial-gradient(1.2px 1.2px at 12% 18%, #fff, transparent),
+      radial-gradient(1px 1px at 28% 42%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 41% 9%, #fff, transparent),
+      radial-gradient(1px 1px at 57% 31%, #fff, transparent),
+      radial-gradient(1.3px 1.3px at 66% 14%, #fff, transparent),
+      radial-gradient(1px 1px at 78% 38%, #fff, transparent),
+      radial-gradient(1.4px 1.4px at 88% 22%, #fff, transparent),
+      radial-gradient(1px 1px at 20% 62%, #fff, transparent),
+      radial-gradient(1.2px 1.2px at 48% 55%, #fff, transparent),
+      radial-gradient(1px 1px at 72% 66%, #fff, transparent),
+      radial-gradient(1.1px 1.1px at 93% 58%, #fff, transparent),
+      radial-gradient(1px 1px at 6% 40%, #fff, transparent);
+    opacity: 0.7;
+    @apply animate-twinkle;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,19 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Weather App</title>
-
-    <meta name="theme-color" content="#0ea5e9" />
-    <meta name="description" content="Minimal beautiful weather app - built with React + TailwindCSS" />
-
-    <link rel="icon" type="image/png" href="./src/assets/weather-app.png" />
-    <link href="./src/index.css" rel="stylesheet" />
-  </head>
-  <body class="bg-black text-white">
-    <div id="root"></div>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Weather</title>
+    <meta
+      name="description"
+      content="Fast, private weather app: 16-day forecast, hourly charts, air quality, UV and heads-up notices for any place on Earth."
+    />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Weather" />
+    <meta property="og:title" content="Weather" />
+    <meta property="og:description" content="16-day forecast, hourly charts, air quality and UV for any place on Earth." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script type="module" src="/src/main.jsx"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This app needs JavaScript to show the forecast.</noscript>
   </body>
 </html>
