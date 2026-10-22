@@ -3,11 +3,24 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    open-pull-requests-limit: 3
+    # One PR per family so paired majors (vite + its plugins, eslint + its
+    # configs) always move together instead of failing on peer conflicts.
     groups:
-      minor-and-patch:
+      vite-toolchain:
+        patterns: ["vite", "@vitejs/*", "vite-plugin-pwa", "vitest", "@vitest/*", "jsdom"]
+      eslint-toolchain:
+        patterns: ["eslint", "@eslint/*", "eslint-plugin-*", "globals"]
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom", "@testing-library/*"]
+      everything-else:
+        patterns: ["*"]
         update-types: [minor, patch]
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]

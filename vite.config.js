@@ -108,10 +108,12 @@ export default defineConfig({
     target: 'es2022',
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          query: ['@tanstack/react-query'],
-          zod: ['zod'],
+        // Function form works with both Rollup (Vite ≤7) and Rolldown (Vite 8+).
+        manualChunks(id) {
+          if (/node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'react';
+          if (id.includes('node_modules/@tanstack/')) return 'query';
+          if (/node_modules[\\/]zod[\\/]/.test(id)) return 'zod';
+          return undefined;
         },
       },
     },
