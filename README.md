@@ -65,7 +65,6 @@ src/
                 units, weatherCodes, forecast (model builder), insights (heads-up rules), aqi, uv,
                 wind, pressure, geo (URL/input validation), storage (safe localStorage), theme
   test/         Vitest setup + synthetic API fixtures
-docs/REVAMP_PROMPT.md   The brief this rebuild was made from
 ```
 
 A note on time: Open-Meteo returns timestamps in the *location's* timezone without an offset.

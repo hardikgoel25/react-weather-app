@@ -27,3 +27,11 @@ dist-ssr
 # build/test output
 dev-dist
 coverage
+
+# local notes / agent prompts (kept out of the repo)
+docs/
+
+# tooling caches
+.eslintcache
+.vercel
+*.tsbuildinfo
